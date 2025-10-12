@@ -8,4 +8,4 @@ This project is designed to retrieve information about saved connections from mR
    ```bash
    cd path\to\dir\with\exe
   ```bash
-  PasswordDecrypor.exe -p [опциональный путь к XML файлу] -master [опциональный мастер-пароль]
+   PasswordDecrypor.exe -p [опциональный путь к XML файлу] -master [опциональный мастер-пароль]
