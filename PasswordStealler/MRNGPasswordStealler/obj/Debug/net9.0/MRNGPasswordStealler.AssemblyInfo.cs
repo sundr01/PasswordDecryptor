@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MRNGPasswordStealler")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e47b1822c9cb6147d10f023b25d2baa2911aca66")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+76013aa71c04418e6a451b30d4022395204abb0f")]
 [assembly: System.Reflection.AssemblyProductAttribute("MRNGPasswordStealler")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MRNGPasswordStealler")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
